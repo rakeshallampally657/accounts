@@ -19,7 +19,7 @@ jobs:
           java-version: 17
       - name: Generate version
         id: set-version
-        run: echo "VERSION=1.0.${GITHUB_RUN_NUMBER}" >> $GITHUB_ENV
+        run: echo "version=1.0.${GITHUB_RUN_NUMBER}" >> $GITHUB_OUTPUT
       - name: Cache the Maven packages to speed up build
         uses: actions/cache@v1
         with:
@@ -27,10 +27,10 @@ jobs:
            key: ${{ runner.os }}-m2-${{ hashFiles('**/pom.xml') }}
            restore-keys: ${{ runner.os }}-m2
       - name: Build project with Maven
-        run: mvn clean package -Drevision=${{ env.VERSION }}
+        run: mvn clean package -Drevision=${{ outputs.version }}
 
       - name: Rename  jar file
-        run: mv target/accounts-*.jar target/accounts-${{ env.VERSION }}.jar
+        run: mv target/accounts-*.jar target/accounts-${{ outputs.version }}.jar
 
       - name: setup Sonarscanner
         uses: warchant/setup-sonar-scanner@v7
