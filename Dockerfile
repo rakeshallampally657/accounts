@@ -8,7 +8,7 @@ WORKDIR /opt/app
 EXPOSE 4545
 
 # add jar file location to mappig name /alias name
-COPY target/accounts-*.jar  account.jar
+COPY accounts-*.jar  account.jar
 
 # Jar Execution Command
 ENTRYPOINT ["java","-jar","account.jar"]
