@@ -37,7 +37,6 @@ jobs:
           -Dsonar.sources=src/
           -Dsonar.junit.reportPaths=target/surefire-reports/
           -Dsonar.jaccoco.reportPaths=target/jacoco.exec
-#          -Dsonar.java.checkstyle.reportPaths=target/site/checkstyle-result.xml
           -Dsonar.java.binaries=target/classes/com/eazybytes/accounts
 
       # Check the Quality Gate status.
