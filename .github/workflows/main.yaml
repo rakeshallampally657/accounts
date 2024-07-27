@@ -105,22 +105,10 @@ jobs:
 
       - name: Build and push Docker image
         env:
-            ECR_REGISTRY: ${{  steps.login-pf-aws-ecr.outputs.registry }}
+            ECR_REGISTRY: ${{  secrets.REGISTRY }}
             ECR_REPOSITORY: vprofile-ecr-rakesh
             IMAGE_TAG: ${{ github.sha }}
         run: |
             docker build -t $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG .
             docker push $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG
 
-#      - name: upload image to ECR
-#        uses: appleboy/docker-ecr-action@master
-#        with:
-#          access_key: ${{ secrets.AWS_ACCESS_KEY_ID }}
-#          secret_key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-#          registry: ${{ secrets.REGISTRY}}
-#          repo: vprofile-ecr-rakesh
-#          region: us-east-1
-#          tags: latest, ${{ github.run_number }}
-#          daemon_off: false
-#          dockerfile: ./Dockerfile
-#          context: ./
