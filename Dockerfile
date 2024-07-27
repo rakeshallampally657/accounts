@@ -2,13 +2,13 @@
 FROM openjdk:17
 
 # Temp folder to run the app
-VOLUME /tmp
-
+#VOLUME /tmp
+WORKDIR /opt/app
 # Provide port number to run the application
 EXPOSE 4545
 
 # add jar file location to mappig name /alias name
-COPY target/accounts-*.jar  /app/account.jar
+COPY target/accounts-*.jar  account.jar
 
 # Jar Execution Command
-ENTRYPOINT ["java","-jar","/app/account.jar"]
+ENTRYPOINT ["java","-jar","account.jar"]
