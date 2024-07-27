@@ -84,7 +84,7 @@ jobs:
       
   publish-job-to-ecr:
     runs-on: ubuntu-latest
-#    needs: [ build_and_test ]
+    needs: [ build_and_test ]
     steps:
       - name: upload image to ECR
         uses: appleboy/docker-ecr-action@master
