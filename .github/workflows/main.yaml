@@ -27,6 +27,9 @@ jobs:
       - name: Build project with Maven
         run: mvn clean package -Drevision=${{ env.VERSION }}
 
+      - name: Rename  jar file
+        run: mv target/accounts-*.jar target/accounts-${{ env.VERSION }}.jar
+
       - name: setup Sonarscanner
         uses: warchant/setup-sonar-scanner@v7
 
@@ -75,5 +78,5 @@ jobs:
 
       - name: Deploy to S3
         run: |
-         aws s3 cp target/*.jar s3://rak-vprofile-bucket/jars/
+         aws s3 cp target/accounts-${{ env.VERSION }}.jar s3://rak-vprofile-bucket/jars/
       
