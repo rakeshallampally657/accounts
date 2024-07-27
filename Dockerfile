@@ -8,7 +8,7 @@ VOLUME /tmp
 EXPOSE 4545
 
 # add jar file location to mappig name /alias name
-ADD target/accounts-*.jar  accounts-*.jar
+COPY target/accounts-*.jar  /app/account.jar
 
 # Jar Execution Command
-ENTRYPOINT ["java","-jar","/accounts-*.jar"]
+ENTRYPOINT ["java","-jar","/app/account.jar"]
