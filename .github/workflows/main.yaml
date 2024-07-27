@@ -62,7 +62,7 @@ jobs:
            name: accounts-jar
            path: target/accounts-${{ steps.set-version.outputs.version }}.jar
 
-  publish-job:
+  publish-job-to-s3:
     runs-on: ubuntu-latest
     needs: [ build_and_test ]
     steps:
@@ -82,3 +82,19 @@ jobs:
         run: |
           aws s3 cp accounts-${{ needs.build_and_test.outputs.version }}.jar s3://rak-vprofile-bucket/jars/
       
+  publish-job-to-ecr:
+    runs-on: ubuntu-latest
+#    needs: [ build_and_test ]
+    steps:
+      - name: upload image to ECR
+        uses: appleboy/docker-ecr-action@master
+        with:
+          access_key: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          secret_key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          registry: ${{ secrets.REGISTRY}}
+          repo: vprofile-ecr-rakesh
+          region: us-east-1
+          tags: latest, ${{ github.run_number }}
+          daemon_off: false
+          dockerfile: ./Dockerfile
+          context: ./
