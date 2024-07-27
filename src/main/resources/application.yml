@@ -1,5 +1,9 @@
 server:
   port: 8080
+
+build:
+  version: @project.version@
+
 spring:
   application:
     name: "accounts"
