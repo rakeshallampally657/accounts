@@ -27,10 +27,10 @@ jobs:
            key: ${{ runner.os }}-m2-${{ hashFiles('**/pom.xml') }}
            restore-keys: ${{ runner.os }}-m2
       - name: Build project with Maven
-        run: mvn clean package -Drevision=${{ needs.build_and_test.outputs.version }}
+        run: mvn clean package -Drevision=${{ steps.set-version.outputs.version }}
 
       - name: Rename  jar file
-        run: mv target/accounts-*.jar target/accounts-${{ needs.build_and_test.outputs.version }}.jar
+        run: mv target/accounts-*.jar target/accounts-${{ steps.set-version.outputs.version }}.jar
 
       - name: setup Sonarscanner
         uses: warchant/setup-sonar-scanner@v7
